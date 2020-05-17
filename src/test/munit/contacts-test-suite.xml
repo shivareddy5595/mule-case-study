@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="contacts-test-suite.xml" />
+	<munit:test name="contacts-test-suite-getcontactsFlowTest" doc:id="8ce6b147-acfe-4adf-a5b4-04ec1465f72b" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getcontactsFlow" doc:id="798c0b77-4053-4a8b-a3f5-a373206e0eb6" name="getcontactsFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="9ebee887-f747-48e9-8fcc-8a2340b948f7" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="contacts-test-suiteTest" doc:id="d33d1f3b-e31b-4d03-8c83-e8a55f492591" >
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="682929e9-cdfd-4a19-83c2-48797ff8c3ba" name="get:\contacts:data-sync-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="c711ef48-e5bb-4584-94b3-fd4e1df97c18" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="contacts-test-suite-contactsMainFlowTest" doc:id="ef4f9b1f-3e37-40e5-9216-6a6ea1af4376" description="Test">
+		<munit:behavior >
+			<set-payload value="payload" doc:name="Set Payload" doc:id="d6111c9f-c3e6-466c-9fa7-03d913dd222b" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to contactsMainFlow" doc:id="3aad93aa-f135-4454-ae55-0eef8224ffac" name="contactsMainFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="9695e9b3-f5ff-4661-a7df-48347d581f03" actual="#[payload]" expected="payload"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="contacts-test-suiteTest1" doc:id="6625a4a8-e779-4b40-bf3f-f9920b6e9441" >
+		<munit:behavior >
+			<flow-ref doc:name="Flow Reference" doc:id="09391c7c-67eb-4432-9ff9-f16f8031678a" name="contactsMainFlow"/>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="bed4ac02-1d1b-46d6-83bd-4626398e85bb" name="post:\contacts:application\json:data-sync-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="2c4c3906-8bf5-45fa-9466-474a0be02ff5" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="contacts-test-suiteTest2" doc:id="c4d45046-5cd4-4b67-b66f-dc06db73e36e" >
+		<munit:behavior >
+			<flow-ref doc:name="Flow Reference" doc:id="580c3be6-8956-4e77-92d8-287f8202b811" name="mainFlow"/>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="21962fd0-fa51-4a32-84e4-92d322fafe65" name="post:\accounts:application\json:data-sync-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="21302e87-bdaa-41fc-918d-33518e3b8ac0" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="contacts-test-suiteTest3" doc:id="50b2cbd5-a3b6-48fa-827d-88e9f885152f" >
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="3bb8dbf4-b36e-4724-aaf6-26184017b729" name="get:\accounts:data-sync-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="cd996f04-f228-453b-8df8-147c71886faf" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
